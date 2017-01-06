@@ -6,7 +6,7 @@ This service runs inside a container so there is almost no overhead in getting s
 ## What is this sevice good for?
 - Easy test reverse proxy routes and paths.
 - Use this service as a dummy to see if request reach your service correctly. 
-- Use it to test load balancers by peeking at the out and see the host. 
+- Use it to test load balancers by peeking at the out and see the host/ip. 
 - Use it for Hello World demo projects that respond the request back. 
 
 ## Start 
@@ -25,15 +25,15 @@ Send request to `curl localhost:5050/xx/yy` and see it bouncing back.
 
 ```
 get {
-    render "/ - Hello World!"
+    render "/ - Hello World! Host:${InetAddress.getLocalHost()}"
 }
 get(":name") {
-    render "/ - Hello $pathTokens.name!"
+    render "/ - Hello $pathTokens.name! Host:${InetAddress.getLocalHost()}"
 }
 get("/:path1/:path2") {
-    render "/:path1/:path2 - Hello to $pathTokens.path1/$pathTokens.path2 !"
+    render "/:path1/:path2 - Hello to $pathTokens.path1/$pathTokens.path2 ! Host:${InetAddress.getLocalHost()}"
 }
 get("/:path1/:path2/:path3") {
-    render "/:path1/:path2/:path3 - Hello to $pathTokens.path1/$pathTokens.path2/$pathTokens.path3 !"
+    render "/:path1/:path2/:path3 - Hello to $pathTokens.path1/$pathTokens.path2/$pathTokens.path3 ! Host:${InetAddress.getLocalHost()}"
 }
        ```
