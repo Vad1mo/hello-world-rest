@@ -61,7 +61,7 @@ get("/:path1/:path2/:path3") {
       labels:
         - traefik.backend=web
         - traefik.port=5050
-        - traefik.frontend.rule=Host:sample.127.0.0.1.xip.io; Path:/registry/webhook, /registry/token ,PathPrefix:/
+        - traefik.frontend.rule=Host:sample.127.0.0.1.xip.io; Path:/api/webhook, /api/token ,PathPrefix:/
         - traefik.frontend.entryPoints=http
         - traefik.frontend.priority = 1
 #---#
