@@ -36,4 +36,42 @@ get("/:path1/:path2") {
 get("/:path1/:path2/:path3") {
     render "/:path1/:path2/:path3 - Hello to $pathTokens.path1/$pathTokens.path2/$pathTokens.path3 ! Host:${InetAddress.getLocalHost()}"
 }
-       ```
+```
+## Compose Example
+
+```
+  version: '2'
+  services:
+#---#
+    proxy:
+      image: traefik:1.3-alpine
+      command: --web --docker --docker.domain=docker.localhost --logLevel=DEBUG --docker.endpoint=unix:///var/run/docker.sock
+      ports:
+        - 80:80
+        - 443:443
+      labels:
+        - traefik.enable=false
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /dev/null:/traefik.toml
+#---#
+    service_web:
+      image: vad1mo/hello-world-rest
+      hostname: web
+      labels:
+        - traefik.backend=web
+        - traefik.port=5050
+        - traefik.frontend.rule=Host:sample.127.0.0.1.xip.io; Path:/registry/webhook, /registry/token ,PathPrefix:/
+        - traefik.frontend.entryPoints=http
+        - traefik.frontend.priority = 1
+#---#
+    service_api:
+      image: vad1mo/hello-world-rest
+      hostname: api
+      labels:
+        - traefik.backend=api
+        - traefik.port=5050
+        - traefik.frontend.rule=Host:sample.127.0.0.1.xip.io; PathPrefix:/v2/
+        - traefik.frontend.entryPoints=http
+        - traefik.frontend.priority = 10
+```
