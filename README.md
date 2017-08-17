@@ -12,7 +12,7 @@ This service runs inside a container so there is almost no overhead in getting s
 ## Start 
 
 ```
-docker run -ti --rm -p 5050:5050 vad1mo/hello-world-service
+docker run -ti --rm -p 5050:5050 vad1mo/hello-world-rest
 ```
 Be patient, because it takes some time until all dependencies are downloaded and the container actually repsonses to requests.
 
