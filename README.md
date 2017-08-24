@@ -16,6 +16,14 @@ docker run -ti --rm -p 5050:5050 vad1mo/hello-world-rest
 ```
 Be patient, because it takes some time until all dependencies are downloaded and the container actually repsonses to requests.
 
+## Example 
+
+```bash
+> curl localhost:5050/foo/bar
+/:path1/:path2 - Hello to foo/bar ! Host:0bd595c5b46a/172.18.0.3
+```
+
+
 ## Usage
 
 
